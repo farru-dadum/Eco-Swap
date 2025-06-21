@@ -11,6 +11,14 @@ const { URL } = require('url'); // Built-in Node.js module for URL parsing
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Serve static files from the root folder
+app.use(express.static(path.join(__dirname)));
+
+// Serve landing.html at root URL
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "landing.html"));
+});
+
 // ✅ Supabase Initialization
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseApiKey = process.env.SUPABASE_API;
