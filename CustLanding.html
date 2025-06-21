@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Landing Page</title>
+
+    <!-- ✅ Styles -->
+    <link rel="stylesheet" href="CustLanding.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- ✅ Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- ✅ Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="section1">
+            <div class="content-box box1">
+                <img src="Eco Swap.png" alt="Eco Swap Icon">
+            </div>
+            <div class="content-box1 box2">EcoSwap</div>
+            <div class="content-box1 box3"><i class="fa-brands fa-twitter"></i></div>
+            <div class="content-box1 box4"><i class="fa-brands fa-instagram"></i></div>
+            <div class="content-box1 box5"><i class="fa-brands fa-facebook"></i></div>
+            <div class="content-box1 box6">Contact us: 6282445486</div>
+            <div class="content-box1 box7">Email: johaan1835@gmail.com</div>
+            <button id="logoutBtn">Logout</button>
+        </div>
+        <div class="section2">
+            <div class="content-box2" id="listingsBtn">Listings</div>
+            <div class="content-box2" id="inboxBtn">Inbox</div>
+            <div class="content-box2" id="rewardBtn">Rewards</div>
+        </div>
+        <div class="section3">
+            <button class="add-button" id="openModal">+ Add</button>
+
+            <!-- ✅ Modal -->
+            <div id="addModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" id="closeModal">&times;</span>
+                    <h2>Add Waste Listing</h2>
+                    <form id="wasteForm">
+                        <label for="wasteType">Waste Type:</label>
+                        <input type="text" id="wasteType" required>
+
+                        <label for="wasteImages">Upload Images:</label>
+                        <input type="file" id="wasteImages" multiple accept="image/*">
+
+                        <label for="description">Description:</label>
+                        <textarea id="description" required></textarea>
+
+                        <label for="condition">Condition:</label>
+                        <input type="text" id="condition" required>
+
+                        <label for="locationName">Location:</label>
+                        <input type="text" id="locationName" required>
+
+                        <button type="button" id="getLocation">Use My Location</button>
+                        
+                        <!-- ✅ Map -->
+                        <div id="map" style="height: 300px; margin-top: 10px;"></div>
+
+                        <button type="submit" class="modal-submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section3">
+        <div class="listings-container"></div> <!-- Container for Listings -->
+        <div class="inbox-container" id="inboxContainer" style="display: none;"></div> <!-- inbox container  -->
+        <div id="editListingModal" class="editmodal">
+            <form id="editListingForm">
+                <div class="editmodal-content">
+                    <span class="close-btn" onclick="closeEditModal()">&times;</span>
+                    <h2>Edit Waste Listing</h2>
+                    <input type="hidden" id="editListingId">
+            
+                    <label for="editWasteType">Waste Type:</label>
+                    <input type="text" id="editWasteType">
+            
+                    <label for="editDescription">Description:</label>
+                    <textarea id="editDescription"></textarea>
+            
+                    <label for="editCondition">Condition:</label>
+                    <input type="text" id="editCondition">
+
+                    <label for="editImage">Update Image:</label>
+                    <input type="file" id="editImage" multiple accept="image/*">
+                    
+                    <label for="editlocationName">New Location:</label>
+                    <input type="text" id="editlocationName" required>
+                    <button type="button" id="editgetLocation">Use My Location</button>
+                    <div id="editmap" style="height: 300px; margin-top: 10px;"></div>
+            
+                    <button type="submit" id="edit-btn" onclick="saveEditListing()">Save Changes</button>
+                </div>
+            </form>
+        </div>
+        
+        </div>
+    </div>
+    <!-- ✅ JavaScript File -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="CustLanding.js"></script>
+</body>
+</html>

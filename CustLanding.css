@@ -1,0 +1,647 @@
+@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Manrope:wght@400;600&display=swap');
+* {
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/* Section1 - top most paert */
+.section1 {
+    min-height: 80px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+/*image of eco swap*/
+.content-box1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: 10px;
+    margin: 2px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+/* Adjust EcoSwap text */
+.box2 {
+    flex-grow: 0;
+    font-family: 'Irish Grover', cursive;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: black;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    white-space: nowrap;
+}
+
+/*icons*/
+.box3, .box4, .box5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+    gap: 15px; /* Adds space between icons */
+}
+
+/* Circular icon styling */
+.content-box1 i {
+    font-size: 1.5rem;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.content-box1 i:hover {
+    transform: scale(1.1); /* Slightly enlarges the icon */
+    background-color: #f0f0f0; /* Light background change on hover */
+}
+
+
+/* Adjust last two boxes with some gap */
+.box6 {
+    flex-grow: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    padding-right: 0px;
+    white-space: nowrap;
+    margin-right: 0px; /* Adds small gap between box6 & box7 */
+}
+
+.box7 {
+    flex-grow: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    white-space: nowrap;
+    border-left: 0.5px solid #878680;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    height: 100px;
+}
+.section1 img {
+    width: 100px; /* Set a fixed width */
+    height: auto; /* Maintains aspect ratio */
+}
+
+
+.section2 {
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    align-items: center;
+    height: 40px; /* Reduce navbar height */
+    background-color: #E4E2D7; /* Keep original background */
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem; /* Slightly smaller text */
+    padding: 10px 30px; /* Add left padding for spacing */
+    gap: 20px; /* Space between links */
+}
+
+/* Navbar Links */
+.content-box2 {
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+.content-box2:hover {
+    background-color: #d6d4c9;
+    transform: scale(1.1);
+}
+
+/* Active State for Navbar Links */
+.content-box2.active {
+    background-color: #c4c2b8; /* Darker shade similar to hover */
+    color: black;
+}
+.section3 {
+    display: flex;
+    align-items: center; 
+    padding: 10px;
+}
+
+/*  Button Styling */
+.add-button {
+    background: linear-gradient(135deg, #0a3d62, #1e5799);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+    box-shadow: 0px 4px 15px rgba(10, 61, 98, 0.6);
+}
+
+.add-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(30, 87, 153, 0.6), transparent);
+    transition: 0.4s;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.add-button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+}
+
+.add-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 25px rgba(10, 61, 98, 0.8);
+}
+
+.add-button:active {
+    transform: scale(0.95);
+    background: linear-gradient(135deg, #1e5799, #0a3d62);
+}
+
+/* Modal Container */
+.modal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background: white; /* Plain white container */
+    padding: 25px;
+    border-radius: 10px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+/* Modal Heading */
+.modal-content h2 {
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #0a3d62;
+    text-transform: uppercase;
+}
+
+/* Modal Form Labels */
+.modal-content label {
+    display: block;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Modal Input Fields and Textarea */
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* Input Focus Effects */
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0,123,255,0.5);
+}
+
+/* Geolocation Button */
+#getLocation {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s;
+}
+
+#getLocation:hover {
+    background-color: #0056b3;
+}
+
+/* Submit Button */
+.modal-submit {
+    background: #007BFF;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.modal-submit:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+.modal-submit:active {
+    transform: scale(0.95);
+}
+
+/* Optional: Style for Geolocation Output */
+#geoOutput {
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+}
+/*section 3*/
+#listings {
+    max-width: 800px;
+    margin: auto;
+}
+
+#listing-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+button {
+    margin: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+/* Listings Container */
+.listings-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: flex-start; /* Align to the left */
+}
+
+/* Individual Listing Card */
+.listing-card {
+    width: 280px; /* Adjust size */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px); /* Slight lift effect */
+}
+
+/* Card Content */
+.card-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Waste Image */
+.listing-image {
+    width: 100%;
+    height: 180px; /* Adjust height */
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Listing Details */
+.listing-details h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #0a3d62;
+}
+
+.listing-details p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Status Styling */
+.claimed-text {
+    color: green;
+    font-weight: bold;
+}
+
+.deleted-text {
+    color: red;
+    font-weight: bold;
+}
+/* 🔹 Modal Background (Initially Hidden) */
+.editmodal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    backdrop-filter: blur(4px); /* Adds blur effect */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔹 Centered Modal Box */
+.editmodal-content {
+    background: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 🔹 Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgb(187, 19, 19);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+}
+
+.close-btn:hover {
+    color: white;
+    background: darkred;
+}
+
+/* 🔹 Labels */
+.editmodal-content label {
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+    text-align: left;
+}
+
+/* 🔹 Input Fields */
+.editmodal-content input,
+.editmodal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* 🔹 Textarea (Description Box) */
+.editmodal-content textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* 🔹 Save Button */
+.editmodal-content button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: none;
+    background: #16425B; /* Your preferred color */
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.editmodal-content button:hover {
+    background: #0d2c3d;
+}
+
+/* inbox */
+
+/* Inbox Container */
+.inbox-container {
+    width: 100%;  /* Full width */
+    height: 100vh; /* Full viewport height */
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Email List */
+.email-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual Email Item */
+.email-item {
+    width: 100%;
+    background: white;
+    border-left: 5px solid var(--primary-color, #007bff);
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Email Hover Effect */
+.email-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Email Header */
+.email-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color, #007bff);
+}
+
+/* Email Time */
+.email-time {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Email Body */
+.email-body {
+    margin-top: 5px;
+    font-size: 1rem;
+    color: #343a40;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .inbox-container {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .email-item {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+button, .btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Claim Button - Light Green */
+.delete-btn {
+    margin: 5px;
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* View Button - Dark Blue */
+.edit-btn {
+    margin: 5px;
+    background-color: #16425B;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #0e2c3f;
+}
+
+/* Logout Button - Red */
+#logoutBtn {
+    background-color: #dc3545;
+    color: white;
+}
+
+#logoutBtn:hover {
+    background-color: #c82333;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSwap - Business Listings</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="ScrapLanding.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="section1">
+            <div class="content-box1 box1">
+                <img src="Eco Swap.png" alt="Eco Swap Icon">
+            </div>
+            <div class="content-box1 box2">EcoSwap</div>
+            <div class="content-box1 box3"><i class="fa-brands fa-twitter"></i></div>
+            <div class="content-box1 box4"><i class="fa-brands fa-instagram"></i></div>
+            <div class="content-box1 box5"><i class="fa-brands fa-facebook"></i></div>
+            <div class="content-box1 box6">Contact us: 6282445486</div>
+            <div class="content-box1 box7">Email: johaan1835@gmail.com</div>
+            <button id="logoutBtn">Logout</button>
+        </header>
+        <nav class="section2">
+            <div class="content-box2" id="allListingsBtn">All Listings</div>
+            <div class="content-box2" id="businessListingsBtn">Businesses</div>
+            <div class="content-box2" id="claimedListingsBtn">Claimed Listings</div>
+        </nav>
+        <main class="section3">
+            <div class="listings-container" id="listingsContainer"></div>
+            <div id="errorDisplay" class="error-message"></div>
+        </main>
+    </div>
+    
+        <!-- View map modal -->
+    <div id="viewMapModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeViewMap">&times;</span>
+            <h2>Location View</h2>
+            <div id="viewMap" style="height: 300px; margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="ScrapLanding.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ScrapSign.css">
+    <title>Scrap Collector Sign-Up</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="brand-title">EcoSwap</h2>
+        <form id="signupForm" action="#" method="POST" novalidate enctype="multipart/form-data">
+            <label for="photo">Upload Passport Size Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+            <span class="error" id="photoError">Photo is required</span>
+
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" required>
+            <span class="error" id="fullnameError">Full name is required</span>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
+            <span class="error" id="addressError">Address is required</span>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+            <span class="error" id="cityError">City is required</span>
+
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" name="pincode" pattern="\d{6}" maxlength="6" required>
+            <span class="error" id="pincodeError">Pincode must be 6 digits</span>
+
+            <label for="scrap_type">Type of Scrap Collected:</label>
+            <select id="scrap_type" name="scrap_type" required>
+                <option value="">Select Scrap Type</option>
+                <option value="Metal">Metal</option>
+                <option value="Plastic">Plastic</option>
+                <option value="Paper">Paper</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Others">Others</option>
+            </select>
+            <span class="error" id="scrapTypeError">Please select a scrap type</span>
+
+            <label>Do you have a Vehicle?</label>
+            <div class="radio-container">
+                <input type="radio" id="vehicle_yes" name="vehicle" value="Yes" required>
+                <label for="vehicle_yes">Yes</label>
+                <input type="radio" id="vehicle_no" name="vehicle" value="No" required>
+                <label for="vehicle_no">No</label>
+            </div>
+            <span class="error" id="vehicleError">Please select an option</span>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span class="error" id="usernameError">Username is required</span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error" id="passwordError">Password must be at least 6 characters</span>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <span class="error" id="confirmPasswordError">Passwords do not match</span>
+
+            <label for="aadhaar">Aadhaar Number:</label>
+            <input type="text" id="aadhaar" name="aadhaar" pattern="\d{12}" maxlength="12" required>
+            <span class="error" id="aadhaarError">Aadhaar must be 12 digits</span>
+
+            <label for="phone">Phone Number (Linked with Aadhaar):</label>
+            <input type="tel" id="phone" name="phone" pattern="[6-9]{1}[0-9]{9}" maxlength="10" required>
+            <span class="error" id="phoneError">Enter a valid 10-digit phone number</span>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+    <script src="ScrapSign.js"></script>  
+</body>
+</html>

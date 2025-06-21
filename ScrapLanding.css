@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Manrope:wght@400;600&display=swap');
+
+/* CSS Variables for easier theming */
+:root {
+  --primary-color: #0a3d62;
+  --secondary-color: #555;
+  --background-color: #E4E2D7;
+  --font-family-main: 'Poppins', sans-serif;
+}
+
+/* General Reset and Base Styles */
+* {
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/* Section1 - Header */
+.section1 {
+    min-height: 80px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Image of Eco Swap */
+.content-box1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: 10px;
+    margin: 2px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+/* Adjust EcoSwap text */
+.box2 {
+    flex-grow: 0;
+    font-family: 'Irish Grover', cursive;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: black;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Icons */
+.box3, .box4, .box5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+    gap: 15px; /* Adds space between icons */
+}
+
+/* Circular icon styling */
+.content-box1 i {
+    font-size: 1.5rem;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.content-box1 i:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+}
+
+/* Adjust last two boxes with some gap */
+.box6 {
+    flex-grow: 0;
+    font-family: var(--font-family-main);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    padding-right: 0px;
+    white-space: nowrap;
+    margin-right: 0px;
+}
+
+.box7 {
+    flex-grow: 0;
+    font-family: var(--font-family-main);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+    white-space: nowrap;
+    border-left: 0.5px solid #878680;
+    border-radius: 0;
+    height: 100px;
+}
+
+.section1 img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+    max-height: 80px;
+}
+
+/* Section2 - Navbar */
+.section2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+    background-color: var(--background-color);
+    color: black;
+    font-family: var(--font-family-main);
+    font-size: 1rem;
+    padding: 10px 30px;
+    gap: 20px;
+}
+
+/* Navbar Links */
+.content-box2 {
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+.content-box2:hover {
+    background-color: #d6d4c9;
+    transform: scale(1.1);
+}
+
+/* Active State for Navbar Links */
+.content-box2.active {
+    background-color: #c4c2b8; /* Darker shade similar to hover */
+    color: black;
+}
+
+/* Section3 - Listings */
+.section3 {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Listings Container */
+.listings-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: flex-start;
+}
+
+.listings-container h2 {
+    width: 100%;
+    font-family: 'Irish Grover', cursive;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+
+/* Listing Card */
+.listing-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Listing Image */
+.listing-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Listing Details */
+.listing-details {
+    padding: 10px;
+    text-align: center;
+}
+
+.listing-details h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.listing-details p {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .listing-card {
+        width: calc(50% - 10px);
+    }
+    .section1 {
+        min-height: auto;
+        padding: 10px;
+    }
+    .box2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .listing-card {
+        width: 100%;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgb(187, 19, 19);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:0.3s ease-in-out;
+}
+
+.close-btn:hover {
+    background: darkred;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+/* Global Button Styling (Same Size) */
+button, .btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Claim Button - Light Green */
+.claim-btn {
+    margin: 5px;
+    background-color: #28a745;
+    color: white;
+}
+
+.claim-btn:hover {
+    background-color: #218838;
+}
+
+/* View Button - Dark Blue */
+.view-btn {
+    margin: 5px;
+    background-color: #16425B;
+    color: white;
+}
+
+.view-btn:hover {
+    background-color: #0e2c3f;
+}
+
+/* Logout Button - Red */
+#logoutBtn {
+    background-color: #dc3545;
+    color: white;
+}
+
+#logoutBtn:hover {
+    background-color: #c82333;
+}

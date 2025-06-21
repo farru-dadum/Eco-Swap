@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EcoSwap</title>
+    <link rel="stylesheet" href="MainLogin.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="brand-title">EcoSwap</h2>
+        
+        <!-- Login Form -->
+        <form id="loginForm" action="#" method="POST" novalidate>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <span class="error" id="usernameError">Username is required</span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <span class="error" id="passwordError">Password is required</span>
+
+            <label for="userType">Select Role:</label>
+            <select id="userType" name="userType">
+                <option value="">-- Select Role --</option>
+                <option value="scrap_collector">Scrap Collector</option>
+                <option value="business">Business Owner</option>
+                <option value="customer">Customer</option>
+            </select>
+            <span class="error" id="roleError">Please select a role</span>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Signup Section -->
+        <div class="signup-section">
+            <p>Don't have an account? Sign up below:</p>
+            <p class="role-note">
+                <strong>Choose a role that describes you the best:</strong>
+                <br>🔹 <strong>Customer:</strong> If you have waste items to give away choose this.
+                <br>🔹 <strong>Business Owner:</strong> If you're looking for recyclable resources choose this
+                <br>🔹 <strong>Scrap Collector:</strong> If you collect and transport waste materials choose this 
+            </p>
+            <select id="signupRole">
+                <option value="">-- Select Role --</option>
+                <option value="customer">Customer</option>
+                <option value="business">Business Owner</option>
+                <option value="scrap_collector">Scrap Collector</option>
+            </select>
+            <button id="signupBtn">Sign Up</button>
+        </div>
+    </div>
+</body>
+
+<script src="MainLogin.js"></script>
+</html>
