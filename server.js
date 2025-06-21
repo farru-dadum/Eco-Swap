@@ -12,12 +12,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Serve static files from the root folder
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(__dirname));
 
-// Serve landing.html at root URL
+// Route: serve landing.html at root "/"
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "landing.html"));
 });
+
 
 // ✅ Supabase Initialization
 const supabaseUrl = process.env.SUPABASE_URL;
