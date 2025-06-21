@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const { URL } = require('url'); // Built-in Node.js module for URL parsing
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 5000;
