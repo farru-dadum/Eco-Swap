@@ -1,5 +1,9 @@
-
 document.addEventListener("DOMContentLoaded", function () {
+    const API_BASE_URL =
+        window.location.hostname === "localhost"
+            ? "http://localhost:5000"
+            : "https://ecoswap-4vyd.onrender.com";
+
     document.getElementById("signupForm").addEventListener("submit", async function (event) {
         event.preventDefault();
 
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("username", username);
 
         try {
-            const uploadResponse = await fetch("http://localhost:5000/upload-photo", {
+            const uploadResponse = await fetch(`${API_BASE_URL}/upload-photo`, {
                 method: "POST",
                 body: formData,
             });
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const userData = {
-                type:"scrap_collector",
+                type: "scrap_collector",
                 username,
                 fullname: document.getElementById("fullname").value,
                 address: document.getElementById("address").value,
@@ -68,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 image_url: uploadResult.image_url,
             };
 
-            const signupResponse = await fetch("http://localhost:5000/signup", {
+            const signupResponse = await fetch(`${API_BASE_URL}/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData),
@@ -83,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } catch (error) {
             console.error(error);
-            alert("Something went wrong: ${error.message}");
+            alert(`Something went wrong: ${error.message}`);
         }
     });
 });

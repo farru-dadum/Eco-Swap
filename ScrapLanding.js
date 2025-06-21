@@ -1,17 +1,20 @@
+// ✅ Base URL logic at the top
+const BASE_URL = window.location.hostname === "localhost" 
+    ? "http://localhost:5000" 
+    : "https://ecoswap-4vyd.onrender.com";
+
 document.addEventListener("DOMContentLoaded", () => {
     const allListingsBtn = document.getElementById("allListingsBtn");
     const businessListingsBtn = document.getElementById("businessListingsBtn");
     const claimedListingsBtn = document.getElementById("claimedListingsBtn");
 
-    // Logout button functionality
     document.getElementById("logoutBtn").addEventListener("click", () => {
         localStorage.removeItem("access_token");
         localStorage.removeItem("username");
-        localStorage.removeItem("userType"); // Clear userType if stored
+        localStorage.removeItem("userType");
         window.location.href = "MainLogin.html";
     });
 
-    // Button event listeners for switching sections
     allListingsBtn.addEventListener("click", () => {
         allListingsBtn.classList.add("active");
         businessListingsBtn.classList.remove("active");
@@ -33,12 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchClaimedListings();
     });
 
-    // Load all available listings by default
     allListingsBtn.classList.add("active");
     fetchScrapListings();
 });
 
-// Show and hide loading overlay
 function showLoading() {
     document.getElementById("loadingOverlay").style.display = "flex";
 }
@@ -47,25 +48,6 @@ function hideLoading() {
     document.getElementById("loadingOverlay").style.display = "none";
 }
 
-//close button for view modal
-document.addEventListener("DOMContentLoaded", () => {
-    const viewMapModal = document.getElementById("viewMapModal");
-    const closeViewMapBtn = document.getElementById("closeViewMap");
-
-    // ✅ Close modal when clicking the 'X' button
-    closeViewMapBtn.addEventListener("click", () => {
-        viewMapModal.style.display = "none";
-    });
-
-    // ✅ Close modal when clicking outside the modal content
-    window.addEventListener("click", (event) => {
-        if (event.target === viewMapModal) {
-            viewMapModal.style.display = "none";
-        }
-    });
-});
-
-// Display and clear error messages
 function displayError(message) {
     const errorDisplay = document.getElementById("errorDisplay");
     errorDisplay.textContent = message;
@@ -78,177 +60,141 @@ function clearError() {
     errorDisplay.style.display = "none";
 }
 
-// Fetch available scrap listings
 async function fetchScrapListings() {
     showLoading();
     try {
-        const accessToken = localStorage.getItem("access_token");
-        if (!accessToken) throw new Error("Please log in to view listings.");
+        const token = localStorage.getItem("access_token");
+        if (!token) throw new Error("Please log in to view listings.");
 
-        const response = await fetch(`http://localhost:5000/listings/scrap`, {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
-            }
+        const response = await fetch(`${BASE_URL}/listings/scrap`, {
+            headers: { "Authorization": `Bearer ${token}` }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
         const listings = await response.json();
-        const availableListings = listings.filter(listing => listing.status === "available");
-        displayListings(availableListings, "Available Listings");
-    } catch (error) {
-        console.error("❌ Failed to fetch available listings:", error);
-        displayError("Failed to load available listings: " + error.message);
+        const available = listings.filter(l => l.status === "available");
+        displayListings(available, "Available Listings");
+    } catch (err) {
+        console.error(err);
+        displayError("Failed to load available listings: " + err.message);
     } finally {
         hideLoading();
     }
 }
 
-// Fetch business details
 async function fetchBusinessDetails() {
     showLoading();
     try {
-        const accessToken = localStorage.getItem("access_token");
-        if (!accessToken) throw new Error("Please log in to view businesses.");
+        const token = localStorage.getItem("access_token");
+        if (!token) throw new Error("Please log in to view businesses.");
 
-        const response = await fetch(`http://localhost:5000/users/businesses`, {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
-            }
+        const response = await fetch(`${BASE_URL}/users/businesses`, {
+            headers: { "Authorization": `Bearer ${token}` }
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
 
         const businesses = await response.json();
         displayBusinesses(businesses);
-    } catch (error) {
-        console.error("❌ Failed to fetch business details:", error);
-        displayError("Failed to load business details: " + error.message);
+    } catch (err) {
+        console.error(err);
+        displayError("Failed to load business details: " + err.message);
     } finally {
         hideLoading();
     }
 }
 
-// Fetch claimed listings (specific to user type)
 async function fetchClaimedListings() {
     showLoading();
     try {
-        const accessToken = localStorage.getItem("access_token");
-        const userType = localStorage.getItem("userType"); // Assumes userType is stored
+        const token = localStorage.getItem("access_token");
+        const type = localStorage.getItem("userType");
         const username = localStorage.getItem("username");
-        if (!accessToken || !username) throw new Error("Please log in to view claimed listings.");
 
-        let url = `http://localhost:5000/listings/scrap`;
-        if (userType === "scrap_collector") {
-            url = `http://localhost:5000/listings/claimed/mine`; // New endpoint for scrap collectors
-        }
+        if (!token || !username) throw new Error("Please log in to view claimed listings.");
+
+        const url = type === "scrap_collector"
+            ? `${BASE_URL}/listings/claimed/mine`
+            : `${BASE_URL}/listings/scrap`;
 
         const response = await fetch(url, {
-            headers: {
-                "Authorization": `Bearer ${accessToken}`
-            }
+            headers: { "Authorization": `Bearer ${token}` }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
         const listings = await response.json();
-        // For non-scrap collectors, filter claimed listings from /listings/scrap
-        const claimedListings = userType === "scrap_collector" ? listings : listings.filter(listing => listing.status === "claimed");
-        displayListings(claimedListings, "Claimed Listings");
-    } catch (error) {
-        console.error("❌ Failed to fetch claimed listings:", error);
-        displayError("Failed to load claimed listings: " + error.message);
+        const claimed = type === "scrap_collector"
+            ? listings
+            : listings.filter(l => l.status === "claimed");
+
+        displayListings(claimed, "Claimed Listings");
+    } catch (err) {
+        console.error(err);
+        displayError("Failed to load claimed listings: " + err.message);
     } finally {
         hideLoading();
     }
 }
 
-// Create scrap listing card
 function createListingCard(listing) {
     const card = document.createElement("div");
-    card.setAttribute("data-listing-id", listing._id); // ✅ Fixed listing ID issue
     card.classList.add("listing-card");
+    card.setAttribute("data-listing-id", listing._id);
     if (listing.status === "claimed") card.classList.add("claimed");
 
-    let imageElement = listing.image_urls && listing.image_urls.length > 0
-        ? `<img src="${listing.image_urls[0]}" alt="Waste Image" class="listing-image">`
+    const image = listing.image_urls?.[0]
+        ? `<img src="${listing.image_urls[0]}" class="listing-image" alt="Waste Image">`
         : "";
 
     card.innerHTML = `
         <div class="card-content">
-            ${imageElement}
+            ${image}
             <div class="listing-details">
                 <h3>${listing.waste_type}</h3>
                 <p>${listing.description}</p>
                 <p><strong>Condition:</strong> ${listing.condition}</p>
                 <p><strong>Location:</strong> ${listing.location_name}</p>
                 <p><strong>Posted by:</strong> ${listing.username || "Unknown"}</p>
-                ${listing.status === "claimed" ? `<p><strong>Claimed by:</strong> ${listing.claimed_by || "Unknown"}</p><button class="view-btn">View</button>` : '<button class="claim-btn" data-listing-id="' + listing._id + '">Claim</button><button class="view-btn">View</button>'}
+                ${listing.status === "claimed"
+                    ? `<p><strong>Claimed by:</strong> ${listing.claimed_by || "Unknown"}</p><button class="view-btn">View</button>`
+                    : `<button class="claim-btn" data-listing-id="${listing._id}">Claim</button><button class="view-btn">View</button>`}
             </div>
-        </div>
-    `;
+        </div>`;
 
     if (listing.status !== "claimed") {
-        const claimButton = card.querySelector(".claim-btn");
-        claimButton.addEventListener("click", () => handleClaimClick(listing._id,listing.username));
+        const claimBtn = card.querySelector(".claim-btn");
+        claimBtn.addEventListener("click", () => handleClaimClick(listing._id, listing.username));
     }
 
     return card;
 }
 
-// ✅ Handle View button click and fetch correct lat/lng from MongoDB
 document.addEventListener("click", async (event) => {
     if (event.target.classList.contains("view-btn")) {
         const card = event.target.closest(".listing-card");
-        const listingId = card.getAttribute("data-listing-id");
-
-        if (!listingId) {
-            alert("Listing ID not found.");
-            return;
-        }
+        const id = card.getAttribute("data-listing-id");
 
         try {
-            // ✅ Fetch the correct lat/lng from MongoDB
-            const response = await fetch(`http://localhost:5000/listings/${listingId}`);
-            const listingData = await response.json();
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch listing details.");
-            }
-
-            const lat = parseFloat(listingData.latitude);
-            const lng = parseFloat(listingData.longitude);
+            const response = await fetch(`${BASE_URL}/listings/${id}`);
+            const data = await response.json();
+            const { latitude: lat, longitude: lng } = data;
 
             if (!isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) {
-                updateMapDefaults(lat, lng); // ✅ Update map defaults
-                showMapView(lat, lng); // ✅ Show map modal
+                updateMapDefaults(lat, lng);
+                showMapView(lat, lng);
             } else {
-                alert("Location data is unavailable for this listing.");
+                alert("Location data is unavailable.");
             }
-
-        } catch (error) {
-            console.error("Error fetching listing details:", error);
+        } catch (err) {
+            console.error(err);
             alert("Error fetching location data.");
         }
     }
 });
 
-// Create business card
 function createBusinessCard(business) {
     const card = document.createElement("div");
     card.classList.add("listing-card", "business-card");
 
-    const businessIconUrl = "https://sigmawire.net/i/04/9ATDQj.jpg";
-
     card.innerHTML = `
         <div class="card-content">
-            <img src="${businessIconUrl}" alt="Business Icon" class="listing-image business-icon">
+            <img src="https://sigmawire.net/i/04/9ATDQj.jpg" class="listing-image business-icon" alt="Business Icon">
             <div class="listing-details">
                 <h3>${business.business_name || "Unnamed Business"}</h3>
                 <p><strong>Raw Materials:</strong> ${business.raw_material || "N/A"}</p>
@@ -258,113 +204,70 @@ function createBusinessCard(business) {
                 <p><strong>GST Number:</strong> ${business.gst_number || "N/A"}</p>
                 <p><strong>Registration:</strong> ${business.registration_number || "N/A"}</p>
             </div>
-        </div>
-    `;
-
+        </div>`;
     return card;
 }
 
-// Display listings
-function displayListings(listings, sectionTitle) {
-    const listingsContainer = document.getElementById("listingsContainer");
-    listingsContainer.innerHTML = `<h2>${sectionTitle}</h2>`;
-
-    if (listings.length === 0) {
-        listingsContainer.innerHTML += "<p>No listings found.</p>";
-        return;
-    }
-
-    listings.forEach(listing => {
-        const card = createListingCard(listing);
-        listingsContainer.appendChild(card);
-    });
+function displayListings(listings, title) {
+    const container = document.getElementById("listingsContainer");
+    container.innerHTML = `<h2>${title}</h2>`;
+    if (listings.length === 0) return container.innerHTML += "<p>No listings found.</p>";
+    listings.forEach(l => container.appendChild(createListingCard(l)));
 }
 
-// Display business cards
 function displayBusinesses(businesses) {
-    const listingsContainer = document.getElementById("listingsContainer");
-    listingsContainer.innerHTML = `<h2>Businesses</h2>`;
-
-    if (businesses.length === 0) {
-        listingsContainer.innerHTML += "<p>No businesses found.</p>";
-        return;
-    }
-
-    businesses.forEach(business => {
-        const card = createBusinessCard(business);
-        listingsContainer.appendChild(card);
-    });
+    const container = document.getElementById("listingsContainer");
+    container.innerHTML = "<h2>Businesses</h2>";
+    if (businesses.length === 0) return container.innerHTML += "<p>No businesses found.</p>";
+    businesses.forEach(b => container.appendChild(createBusinessCard(b)));
 }
 
-// Handle claim button click
-
-const handleClaimClick = async (listingId,Cusername) => { 
+const handleClaimClick = async (id, cUsername) => {
+    const token = localStorage.getItem("access_token");
     const username = localStorage.getItem("username");
-    const accessToken = localStorage.getItem("access_token");
-
-    // Check if user is logged in
-    if (!username || !accessToken) {
-        alert("You must be logged in to claim a listing.");
-        return;
-    }
-
-    const claimDetails = {
-        claimed_by: username,
-        status: "claimed",
-    };
+    if (!token || !username) return alert("You must be logged in to claim.");
 
     try {
-        // Make PATCH request to backend with authorization
-        const response = await fetch(`http://localhost:5000/listings/claim/${listingId}`, {
+        const response = await fetch(`${BASE_URL}/listings/claim/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${accessToken}` // Add token for backend verification
+                "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(claimDetails),
+            body: JSON.stringify({ claimed_by: username, status: "claimed" })
         });
 
         const result = await response.json();
-
         if (response.ok) {
-            console.log("Claim successful:", result);
-            // Update user's score in Supabase
-            await updateUserScore(Cusername);
+            await updateUserScore(cUsername);
             window.location.reload();
         } else {
-            console.error("Failed to claim:", result.error);
-            alert(result.error || "Failed to claim listing.");
+            alert(result.error || "Claim failed.");
         }
-    } catch (error) {
-        console.error("Error while claiming:", error);
-        alert("Server error while claiming. Please try again.");
+    } catch (err) {
+        alert("Error claiming listing.");
+        console.error(err);
     }
 };
 
-// Function to update the user's score in Supabase
 async function updateUserScore(username) {
     try {
-        const accessToken = localStorage.getItem("access_token");
-        const response = await fetch(`http://localhost:5000/update-score`, {
+        const token = localStorage.getItem("access_token");
+        const response = await fetch(`${BASE_URL}/update-score`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${accessToken}` // Add token for backend verification
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ username })
         });
 
-        const result = await response.json();
-
-        if (response.ok) {
-            console.log("Score updated successfully:", result);
-        } else {
-            console.error("Failed to update score:", result.error);
-        }
-    } catch (error) {
-        console.error("Error while updating score:", error);
+        if (!response.ok) console.error("Failed to update score:", await response.json());
+    } catch (err) {
+        console.error("Error updating score:", err);
     }
 }
+
 
 // ✅ Map Setup
 const viewMapModal = document.getElementById("viewMapModal");
