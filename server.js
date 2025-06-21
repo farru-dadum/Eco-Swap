@@ -1219,6 +1219,7 @@ app.get("/listings/:id", async (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 EcoSwap Server listening on port ${port}`);
   console.log(`🔗 Local: http://localhost:${port}`);
+  console.log(`🌐 Render URL: https://ecoswap-4vyd.onrender.com`);
   // Add link to production URL if applicable
 });
 
