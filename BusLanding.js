@@ -1,3 +1,12 @@
+// ============================
+// Dynamic Backend URL Config
+// ============================
+const isLocalhost = window.location.hostname === "localhost";
+const BASE_URL = isLocalhost
+  ? "http://localhost:5000"
+  : "https://ecoswap-4vyd.onrender.com"; // 🔁 Replace with your actual deployed URL
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.getElementById("logoutBtn");
 
@@ -42,7 +51,7 @@ async function fetchClaimedListings() {
         const businessUsername = localStorage.getItem("username");
 
         // Fetch listings from the backend
-        const response = await fetch(`http://localhost:5000/listings/business`, {
+        const response = await fetch(`${BASE_URL}/listings/business`, {
             headers: {
                 "Authorization": `Bearer ${accessToken}`
             }

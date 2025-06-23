@@ -1,3 +1,12 @@
+// ============================
+// Dynamic Backend URL Config
+// ============================
+const isLocalhost = window.location.hostname === "localhost";
+const BASE_URL = isLocalhost
+  ? "http://localhost:5000"
+  : "https://ecoswap-4vyd.onrender.com"; // 🔁 Replace with your actual deployed URL
+
+
 document.getElementById("fetchScore").addEventListener("click", async () => {
     const username = localStorage.getItem("username");
 
@@ -9,7 +18,7 @@ document.getElementById("fetchScore").addEventListener("click", async () => {
     document.getElementById("username").value = username; // ✅ Set input field AFTER checking
 
     try {
-        const response = await fetch(`http://localhost:5000/get-user-score/${username}`);
+        const response = await fetch(`${BASE_URL}/get-user-score/${username}`);
         
         if (!response.ok) {
             throw new Error(`⚠ Failed to fetch user data: ${response.status} ${response.statusText}`);

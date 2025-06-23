@@ -13,6 +13,15 @@ const listingsBtn = document.getElementById("listingsBtn");
 const inboxBtn = document.getElementById("inboxBtn");
 const addButton = document.querySelector(".add-button");
 
+// ============================
+// Dynamic Backend URL Config
+// ============================
+const isLocalhost = window.location.hostname === "localhost";
+const BASE_URL = isLocalhost
+  ? "http://localhost:5000"
+  : "https://ecoswap-4vyd.onrender.com"; // Replace with your actual Render URL
+
+
 // Logout button functionality
 document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("access_token");
@@ -197,7 +206,7 @@ if (wasteForm) {
             // Show loading indicator if you have one
             console.log(" M Submitting new listing...");
 
-            const response = await fetch("http://localhost:5000/listings", {
+            const response = await fetch(`${BASE_URL}/listings`, {
                 method: "POST",
                 body: formData, // FormData handles multipart/form-data automatically
                 headers: {
@@ -444,7 +453,7 @@ async function saveEditListing() {
         try {
             console.log(` M Uploading ${newImageFiles.length} new images...`);
             // Use backend endpoint for uploading images
-            const uploadResponse = await fetch("http://localhost:5000/upload-images", {
+            const uploadResponse = await fetch(`${BASE_URL}/upload-images`, {
                 method: "POST",
                 body: imageFormData,
                 // Authorization might not be needed here if endpoint is public/different auth
@@ -492,7 +501,7 @@ async function saveEditListing() {
     try {
         // Show loading indicator
 
-        const response = await fetch("http://localhost:5000/update-waste-listing", {
+        const response = await fetch(`${BASE_URL}/update-waste-listing`, {
             method: "POST", // Or PATCH, match your backend route
             headers: {
                 "Content-Type": "application/json",
@@ -559,7 +568,7 @@ async function deleteListing(listingId, cardElement) {
     try {
         // Show loading indicator
 
-        const response = await fetch(`http://localhost:5000/listings/${listingId}`, {
+        const response = await fetch(`${BASE_URL}/listings/${listingId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
@@ -633,7 +642,7 @@ async function fetchCustomerListings() {
 
 
     try {
-        const response = await fetch(`http://localhost:5000/listings/customer/${username}`, {
+        const response = await fetch(`${BASE_URL}/listings/customer/${username}`, {
             method: 'GET', // Explicitly state method
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -783,7 +792,7 @@ async function fetchInboxMessages() {
     inboxContainer.innerHTML = "<p>Loading your inbox...</p>";
 
     try {
-        const response = await fetch(`http://localhost:5000/listings/customer/${username}`, {
+        const response = await fetch(`${BASE_URL}/listings/customer/${username}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

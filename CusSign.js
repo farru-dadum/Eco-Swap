@@ -1,3 +1,11 @@
+// ============================
+// Dynamic Backend URL Config
+// ============================
+const isLocalhost = window.location.hostname === "localhost";
+const BASE_URL = isLocalhost
+  ? "http://localhost:5000"
+  : "https://ecoswap-4vyd.onrender.com"; // 🔁 Replace with your actual deployed URL
+
 document.getElementById("signupForm").addEventListener("submit", async function (event) {
     event.preventDefault();
     let isValid = true;
@@ -73,7 +81,7 @@ document.getElementById("signupForm").addEventListener("submit", async function 
     };
 
     try {
-        const response = await fetch("http://localhost:5000/signup", {
+        const response = await fetch(`${BASE_URL}/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
