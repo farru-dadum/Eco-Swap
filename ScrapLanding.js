@@ -272,6 +272,10 @@ async function updateUserScore(username) {
 // ✅ Map Setup
 const viewMapModal = document.getElementById("viewMapModal");
 const closeViewMapBtn = document.getElementById("closeViewMap");
+closeViewMapBtn.addEventListener("click", () => {
+    viewMapModal.style.display = "none";
+});
+
 let viewMap;
 let viewMarker;
 
