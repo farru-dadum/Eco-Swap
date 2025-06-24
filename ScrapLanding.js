@@ -194,7 +194,7 @@ function createBusinessCard(business) {
 
     card.innerHTML = `
         <div class="card-content">
-            <img src="https://sigmawire.net/i/04/9ATDQj.jpg" class="listing-image business-icon" alt="Business Icon">
+            <img src="Business.jpg" class="listing-image business-icon" alt="Business Icon">
             <div class="listing-details">
                 <h3>${business.business_name || "Unnamed Business"}</h3>
                 <p><strong>Raw Materials:</strong> ${business.raw_material || "N/A"}</p>
